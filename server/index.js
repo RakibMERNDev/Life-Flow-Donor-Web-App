@@ -7,11 +7,19 @@ const jwt = require("jsonwebtoken");
 const stripe = require("stripe")(process.env.SECRET_KEY_STRIPE);
 
 // middleware
+
+const allowedOrigins = "https://life-flow-donor.vercel.app";
+
 app.use(
   cors({
-    origin: "*",
-  })
+    origin: allowedOrigins,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    maxAge: 3600,
+  }),
 );
+
 app.use(express.json());
 
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
@@ -278,7 +286,7 @@ async function run() {
         };
         const result = await usersCollection.updateOne(filter, updatedDoc);
         res.send(result);
-      }
+      },
     );
 
     app.patch(
@@ -295,7 +303,7 @@ async function run() {
         };
         const result = await usersCollection.updateOne(filter, updatedDoc);
         res.send(result);
-      }
+      },
     );
 
     app.patch(
@@ -312,7 +320,7 @@ async function run() {
         };
         const result = await usersCollection.updateOne(filter, updatedDoc);
         res.send(result);
-      }
+      },
     );
 
     app.patch(
@@ -329,7 +337,7 @@ async function run() {
         };
         const result = await usersCollection.updateOne(filter, updatedDoc);
         res.send(result);
-      }
+      },
     );
 
     app.delete(
@@ -341,7 +349,7 @@ async function run() {
         const query = { _id: new ObjectId(id) };
         const result = await usersCollection.deleteOne(query);
         res.send(result);
-      }
+      },
     );
 
     // blog related api
@@ -486,6 +494,6 @@ app.get("/", (req, res) => {
 
 app.listen(port, () => {
   console.log(
-    `LifeFlowDonor server running on port : http://localhost:${port}`
+    `LifeFlowDonor server running on port : http://localhost:${port}`,
   );
 });
