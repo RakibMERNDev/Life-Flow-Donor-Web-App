@@ -172,7 +172,7 @@ const Signup = () => {
                     <select
                       defaultValue="default"
                       {...register("group", { required: true })}
-                      className="py-2 px-2 rounded-md select-bordered bg-red-800 text-black w-full"
+                      className="py-2 px-2 rounded-md select-bordered bg-red-800 text-white w-full"
                     >
                       <option disabled value="default">
                         Select Your Blood Group

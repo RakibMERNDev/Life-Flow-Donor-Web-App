@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "../Components/Shared/Navbar/Navbar";
 import Footer from "../Components/Shared/Footer/Footer";
+import Navbar from "../Components/Shared/Navbar/Navbar";
 
 const Main = () => {
   return (
-    <div className="font-Font-Nunito max-w-[1440px] mx-auto">
+    <div className="font-Font-Nunito">
       <Navbar></Navbar>
-      <div className=" min-h-[calc(100vh-220px)]">
+      <div>
         <Outlet />
       </div>
       <Footer />

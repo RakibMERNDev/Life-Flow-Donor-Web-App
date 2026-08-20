@@ -128,7 +128,7 @@ const Profile = () => {
 
       <button
         onClick={handleEditProfile}
-        className=" py-2 px-2 rounded-md transition delay-200 bg-red-800 hover:bg-slate-700 text-black mt-5"
+        className=" py-2 px-2 rounded-md transition delay-200 bg-red-800 hover:bg-slate-700 text-white mt-5"
       >
         {editProfile ? "Cancel" : "Edit Profile"}
       </button>
@@ -139,11 +139,11 @@ const Profile = () => {
             <div key={user._id}>
               <div className="bg-[#8B0000] shadow-lg px-3 rounded-md text-sm">
                 <div className="p-2 py-6">
-                  <h3 className="text-2xl  mb-2 text-center font-bold text-black">
+                  <h3 className="text-2xl  mb-2 text-center font-bold text-white">
                     Update your profile
                   </h3>
                   <form onSubmit={handleSubmit(onSubmit)}>
-                    <p className="text-sm font-semibold mb-1 text-black">
+                    <p className="text-sm font-semibold mb-1 text-white">
                       Name*
                     </p>
                     <input
@@ -153,7 +153,7 @@ const Profile = () => {
                       className=" py-2 px-2 rounded-md  input-bordered md:w-1/2"
                     />
 
-                    <p className="text-sm font-semibold mt-5 mb-1 text-black">
+                    <p className="text-sm font-semibold mt-5 mb-1 text-white">
                       Your Photo*
                     </p>
 
@@ -164,7 +164,7 @@ const Profile = () => {
                     />
                     <div className="flex gap-10 my-5">
                       <div className="md:w-1/2">
-                        <p className="text-sm font-semibold mb-1 text-black">
+                        <p className="text-sm font-semibold mb-1 text-white">
                           Blood Group*
                         </p>
                         <select
@@ -185,7 +185,7 @@ const Profile = () => {
                     </div>
                     <div className="flex flex-col md:flex-row gap-5">
                       <div className="md:w-1/2">
-                        <p className="text-sm font-semibold mb-1 text-black">
+                        <p className="text-sm font-semibold mb-1 text-white">
                           Upazila*
                         </p>
                         <select
@@ -201,7 +201,7 @@ const Profile = () => {
                         </select>
                       </div>
                       <div className="md:w-1/2">
-                        <p className="text-sm font-semibold mb-1 text-black">
+                        <p className="text-sm font-semibold mb-1 text-white">
                           District*
                         </p>
                         <select
@@ -221,7 +221,7 @@ const Profile = () => {
                     <br />
                     <button
                       type="submit"
-                      className="text-red-500 shadow-lg px-2 py-1 rounded-md transition delay-200 bg-white border-0 mb-2 hover:bg-[#147C72] hover:text-black"
+                      className="text-red-500 shadow-lg px-2 py-1 rounded-md transition delay-200 bg-white border-0 mb-2 hover:bg-[#147C72] hover:text-white"
                     >
                       Update
                     </button>

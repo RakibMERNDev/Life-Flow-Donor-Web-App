@@ -2,8 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 
-import useAxiosPublic from "../../hooks/useAxiosPublic";
 import Skeleton from "@mui/material/Skeleton";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 import { useState } from "react";
 import LoadingSkeleton from "./LoadingSkeleton";
@@ -42,8 +42,9 @@ const AllRequest = () => {
           </h3>
           <div className="mb-5 md:mb-0">
             <select
+              name="select-request"
               onChange={handleSelect}
-              className="py-1 px-1 rounded-md border w-full max-w-xs md:w-auto bg-[#8B0000]"
+              className="py-1 px-1 rounded-md border w-full max-w-xs md:w-auto bg-[#8B0000] text-white"
             >
               <option value="">All</option>
               <option value="inprogress">Inprogress</option>
