@@ -36,16 +36,16 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    const DistrictCollection = client.db("Area").collection("District");
-    const UpazilaCollection = client.db("Area").collection("Upazila");
-    const usersCollection = client.db("Blood-Donation").collection("users");
+    const DistrictCollection = client.db("BloodDonationDB").collection("districts");
+    const UpazilaCollection = client.db("BloodDonationDB").collection("upazilas");
+    const usersCollection = client.db("BloodDonationDB").collection("users");
     const requestsCollection = client
-      .db("Blood-Donation")
+      .db("BloodDonationDB")
       .collection("requests");
 
-    const blogCollection = client.db("Blood-Donation").collection("blogs");
+    const blogCollection = client.db("BloodDonationDB").collection("blogs");
     const donationCollection = client
-      .db("Blood-Donation")
+      .db("BloodDonationDB")
       .collection("donations");
 
     // jwt related api
