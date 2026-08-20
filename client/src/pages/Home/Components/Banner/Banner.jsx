@@ -19,14 +19,14 @@ const Banner = () => {
             {!user && (
               <Link to="/signup">
                 {" "}
-                <button className="btn bg-[#8B0000] text-black hover:bg-[#147C72] border-0">
+                <button className="btn bg-[#8B0000] text-white hover:bg-[#147C72] border-0">
                   Join As A Donor
                 </button>
               </Link>
             )}
             <Link to="/search">
               {" "}
-              <button className="btn bg-blue-950 text-black ml-5 hover:bg-black border-0">
+              <button className="btn bg-blue-950 text-white ml-5 hover:bg-black border-0">
                 Search Donor
               </button>
             </Link>
