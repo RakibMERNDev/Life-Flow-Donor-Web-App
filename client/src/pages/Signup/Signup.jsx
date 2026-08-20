@@ -1,18 +1,24 @@
 import { useForm } from "react-hook-form";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 
+import { Helmet } from "react-helmet";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import useAuth from "../../hooks/useAuth";
 import useArea from "../../hooks/useArea";
-import { Helmet } from "react-helmet";
+import useAuth from "../../hooks/useAuth";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const Signup = () => {
-  const { districts, upazilas } = useArea();
+  const {
+    districts,
+    upazilas,
+    isLoading,
+    selectedDistrict,
+    setSelectedDistrict,
+  } = useArea();
 
   // hooks
 
@@ -190,31 +196,41 @@ const Signup = () => {
                 </div>
                 <div className="flex flex-col md:flex-row gap-5">
                   <div className="md:w-1/2">
-                    <p className="text-sm font-semibold mb-2 text-black">
-                      Upazila*
-                    </p>
-                    <select
-                      {...register("upazila", { required: true })}
-                      className="py-2 px-2 rounded-md select-bordered w-full"
-                    >
-                      {upazilas.map((option, index) => (
-                        <option key={index} value={option.name}>
-                          {option.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="md:w-1/2">
-                    <p className="text-sm font-semibold mb-2 text-black">
+                    <p className="text-sm font-semibold mb-1 text-black">
                       District*
                     </p>
                     <select
                       {...register("district", { required: true })}
-                      className="py-2 px-2 rounded-md select-bordered w-full"
+                      className="select select-bordered w-full"
+                      value={selectedDistrict}
+                      onChange={(e) => setSelectedDistrict(e.target.value)}
                     >
-                      {districts.map((option, index) => (
-                        <option key={index} value={option.name}>
-                          {option.name}
+                      <option>Select Your District</option>
+                      {districts.map((district) => (
+                        <option key={district._id} value={district.id}>
+                          {district.name} ({district.bn_name})
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="md:w-1/2">
+                    <p className="text-sm font-semibold mb-1 text-black">
+                      Upazila*
+                    </p>
+                    <select
+                      {...register("upazila", { required: true })}
+                      className="select select-bordered w-full"
+                      disabled={!selectedDistrict || isLoading}
+                    >
+                      <option>
+                        {isLoading
+                          ? "⏳ Loading upazilas..."
+                          : "-- Choose an Upazila --"}
+                      </option>
+                      {upazilas.map((upazila) => (
+                        <option key={upazila._id} value={upazila.id}>
+                          {upazila.name} ({upazila.bn_name})
                         </option>
                       ))}
                     </select>

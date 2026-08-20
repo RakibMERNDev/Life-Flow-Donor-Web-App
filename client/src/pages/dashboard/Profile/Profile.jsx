@@ -16,7 +16,13 @@ const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const Profile = () => {
-  const { districts, upazilas } = useArea();
+  const {
+    districts,
+    upazilas,
+    isLoading,
+    selectedDistrict,
+    setSelectedDistrict,
+  } = useArea();
   const { register, handleSubmit } = useForm();
   const { user, updateUser } = useAuth();
   const [editProfile, setEditProfile] = useState(false);
@@ -52,7 +58,7 @@ const Profile = () => {
 
       const result = await axiosSecure.patch(
         `/user?email=${user?.email}`,
-        updatedProfile
+        updatedProfile,
       );
 
       if (result.data.modifiedCount > 0) {
@@ -84,44 +90,39 @@ const Profile = () => {
         <title>LifeFlowDonor | Profile</title>
       </Helmet>
       <div>
-        <div>
-          <div className="flex flex-col md:flex-row gap-10">
-            <div>
-              <img
-                src={loggedInUser?.avatarImage || user?.photoURL}
-                alt="Avatar"
-                style={{ maxWidth: "150px" }}
-              />
-            </div>
-            <div className="pt-5 text-black">
-              <h2 className="text-2xl font-semibold">
-                Name: {loggedInUser?.name || user?.displayName}
-              </h2>
-              <p className="text-xl font-semibold">
-                Email: {loggedInUser?.email || user?.email}
-              </p>
-              <p className="text-red-400 font-semibold">
-                Blood Group: {loggedInUser?.bloodGroup}
-              </p>
-              <p className="font-semibold">Upazila: {loggedInUser?.upazila}</p>
-              <p className="font-semibold">
-                District: {loggedInUser?.district}
-              </p>
-              <p className="font-semibold">
-                Status:{" "}
-                <span
-                  style={
-                    loggedInUser?.status === "active"
-                      ? { color: "black" }
-                      : { color: "red" }
-                  }
-                >
-                  {" "}
-                  {loggedInUser?.status}
-                </span>
-              </p>
-              <p className="font-semibold">Role: {loggedInUser?.role}</p>
-            </div>
+        <div className="flex flex-col md:flex-row gap-10">
+          <div>
+            <img
+              src={loggedInUser?.avatarImage || user?.photoURL}
+              alt="Avatar"
+              style={{ maxWidth: "150px" }}
+            />
+          </div>
+          <div className="pt-5 text-white">
+            <h2 className="text-2xl font-normal">
+              Name: {loggedInUser?.name || user?.displayName}
+            </h2>
+            <p className="text-xl font-normal">
+              Email: {loggedInUser?.email || user?.email}
+            </p>
+            <p className="text-red-400 font-normal">
+              Blood Group: {loggedInUser?.bloodGroup}
+            </p>
+            <p className="font-normal">Upazila: {loggedInUser?.upazila}</p>
+            <p className="font-normal">District: {loggedInUser?.district}</p>
+            <p className="font-normal">
+              Status:{" "}
+              <span
+                style={
+                  loggedInUser?.status === "active"
+                    ? { color: "white" }
+                    : { color: "red" }
+                }
+              >
+                {loggedInUser?.status}
+              </span>
+            </p>
+            <p className="font-normal">Role: {loggedInUser?.role}</p>
           </div>
         </div>
       </div>
@@ -185,33 +186,41 @@ const Profile = () => {
                     </div>
                     <div className="flex flex-col md:flex-row gap-5">
                       <div className="md:w-1/2">
-                        <p className="text-sm font-semibold mb-1 text-white">
-                          Upazila*
+                        <p className="text-sm font-semibold mb-1 text-black">
+                          District*
                         </p>
                         <select
-                          defaultValue={user.upazila}
-                          {...register("upazila", { required: true })}
-                          className="py-2 px-2 rounded-md select-bordered w-full"
+                          {...register("district", { required: true })}
+                          className="select select-bordered w-full"
+                          value={selectedDistrict}
+                          onChange={(e) => setSelectedDistrict(e.target.value)}
                         >
-                          {upazilas.map((option, index) => (
-                            <option key={index} value={option.name}>
-                              {option.name}
+                          <option>Select Your District</option>
+                          {districts.map((district) => (
+                            <option key={district._id} value={district.id}>
+                              {district.name} ({district.bn_name})
                             </option>
                           ))}
                         </select>
                       </div>
+
                       <div className="md:w-1/2">
-                        <p className="text-sm font-semibold mb-1 text-white">
-                          District*
+                        <p className="text-sm font-semibold mb-1 text-black">
+                          Upazila*
                         </p>
                         <select
-                          defaultValue={user.district}
-                          {...register("district", { required: true })}
-                          className="py-2 px-2 rounded-md  select-bordered w-full"
+                          {...register("upazila", { required: true })}
+                          className="select select-bordered w-full"
+                          disabled={!selectedDistrict || isLoading}
                         >
-                          {districts.map((option, index) => (
-                            <option key={index} value={option.name}>
-                              {option.name}
+                          <option>
+                            {isLoading
+                              ? "⏳ Loading upazilas..."
+                              : "-- Choose an Upazila --"}
+                          </option>
+                          {upazilas.map((upazila) => (
+                            <option key={upazila._id} value={upazila.id}>
+                              {upazila.name} ({upazila.bn_name})
                             </option>
                           ))}
                         </select>

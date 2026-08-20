@@ -3,13 +3,19 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useArea from "../../../hooks/useArea";
 import useAuth from "../../../hooks/useAuth";
-import useCurrentUser from "../../../hooks/useCurrentUser";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useCurrentUser from "../../../hooks/useCurrentUser";
 
 const CreateRequest = () => {
   const { user } = useAuth();
   const { register, handleSubmit, reset } = useForm();
-  const { districts, upazilas } = useArea();
+  const {
+    districts,
+    upazilas,
+    selectedDistrict,
+    setSelectedDistrict,
+    isLoading,
+  } = useArea();
 
   const axiosSecure = useAxiosSecure();
 
@@ -127,30 +133,40 @@ const CreateRequest = () => {
                   <div className="flex flex-col md:flex-row gap-5">
                     <div className="md:w-1/2">
                       <p className="text-sm font-semibold mb-1 text-black">
-                        Upazila*
-                      </p>
-                      <select
-                        {...register("upazila", { required: true })}
-                        className="select select-bordered w-full"
-                      >
-                        {upazilas.map((option, index) => (
-                          <option key={index} value={option.name}>
-                            {option.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    <div className="md:w-1/2">
-                      <p className="text-sm font-semibold mb-1 text-black">
                         District*
                       </p>
                       <select
                         {...register("district", { required: true })}
                         className="select select-bordered w-full"
+                        value={selectedDistrict}
+                        onChange={(e) => setSelectedDistrict(e.target.value)}
                       >
-                        {districts.map((option, index) => (
-                          <option key={index} value={option.name}>
-                            {option.name}
+                        <option>Select Your District</option>
+                        {districts.map((district) => (
+                          <option key={district._id} value={district.id}>
+                            {district.name} ({district.bn_name})
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="md:w-1/2">
+                      <p className="text-sm font-semibold mb-1 text-black">
+                        Upazila*
+                      </p>
+                      <select
+                        {...register("upazila", { required: true })}
+                        className="select select-bordered w-full"
+                        disabled={!selectedDistrict || isLoading}
+                      >
+                        <option>
+                          {isLoading
+                            ? "⏳ Loading upazilas..."
+                            : "-- Choose an Upazila --"}
+                        </option>
+                        {upazilas.map((upazila) => (
+                          <option key={upazila._id} value={upazila.id}>
+                            {upazila.name} ({upazila.bn_name})
                           </option>
                         ))}
                       </select>

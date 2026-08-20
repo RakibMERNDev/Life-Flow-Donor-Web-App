@@ -8,7 +8,7 @@ const stripe = require("stripe")(process.env.SECRET_KEY_STRIPE);
 
 // middleware
 
-const allowedOrigins = "https://life-flow-donor.vercel.app";
+const allowedOrigins = ["https://life-flow-donor.vercel.app", "http://localhost:5173"];
 
 app.use(
   cors({
@@ -36,8 +36,12 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    const DistrictCollection = client.db("BloodDonationDB").collection("districts");
-    const UpazilaCollection = client.db("BloodDonationDB").collection("upazilas");
+    const DistrictCollection = client
+      .db("BloodDonationDB")
+      .collection("districts");
+    const UpazilaCollection = client
+      .db("BloodDonationDB")
+      .collection("upazilas");
     const usersCollection = client.db("BloodDonationDB").collection("users");
     const requestsCollection = client
       .db("BloodDonationDB")
@@ -97,7 +101,13 @@ async function run() {
     });
 
     app.get("/upazilas", async (req, res) => {
-      const result = await UpazilaCollection.find().toArray();
+      let query = {};
+
+      if (req.query) {
+        query = req.query;
+      }
+
+      const result = await UpazilaCollection.find(query).toArray();
       res.send(result);
     });
 

@@ -20,7 +20,7 @@ const useAxiosSecure = () => {
     },
     function (error) {
       return Promise.reject(error);
-    }
+    },
   );
 
   //   intercepts 401 and 403 status
@@ -36,7 +36,7 @@ const useAxiosSecure = () => {
         navigate("/login");
       }
       return Promise.reject(error);
-    }
+    },
   );
 
   return axiosSecure;

@@ -11,7 +11,11 @@ import app from "../firebase/firebase.config";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 
 export const AuthContext = createContext(null);
+
+
 const AuthProvider = ({ children }) => {
+
+  
   const auth = getAuth(app);
 
   const [loading, setLoading] = useState(true);

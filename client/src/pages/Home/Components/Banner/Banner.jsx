@@ -7,7 +7,7 @@ const Banner = () => {
   const { user } = useAuth();
   return (
     <div
-      className="bg-no-repeat bg-center bg-cover min-h-screen flex justify-center items-center mx-auto font-Font-Play"
+      className="bg-no-repeat bg-center bg-cover h-screen flex justify-center items-center mx-auto font-Font-Play"
       style={{ backgroundImage: `url(${background})`, opacity: 0.8 }}
     >
       <div className="space-y-5">

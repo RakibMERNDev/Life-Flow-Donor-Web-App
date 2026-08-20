@@ -11,8 +11,7 @@ const Home = () => {
       <div className="">
         <Banner />
       </div>
-      <div className=" text-center mt-10">
-      </div>
+      
     </div>
   );
 };
