@@ -3,19 +3,18 @@ import { Link, NavLink } from "react-router-dom";
 // will have logo, donation requests, blog, login, registration link before logged
 // in. and will have dashboard, and fundings links addition to those links.
 
-import useAuth from "../../../hooks/useAuth";
-import "./Navbar.css";
 import useAdmin from "../../../hooks/useAdmin";
+import useAuth from "../../../hooks/useAuth";
 import useCurrentUser from "../../../hooks/useCurrentUser";
+import "./Navbar.css";
 
-import logo2 from '../../../assets/Logo.png';
+import logo2 from "../../../assets/Logo.png";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
   const [isAdmin] = useAdmin();
   const { currentUser } = useCurrentUser();
   const role = currentUser[0]?.role;
-
 
   const navLinks = (
     <>
@@ -95,7 +94,7 @@ const Navbar = () => {
           to="/"
           className="flex items-center justify-center-center gap-2 text-xl"
         >
-         <img src={logo2} alt="website-logo" />
+          <img className="w-6" src={logo2} alt="website-logo" />
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -119,11 +118,9 @@ const Navbar = () => {
               className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content rounded-box w-52 bg-white"
             >
               <li className="rounded-md ">
-                <Link to="/dashboard/profile">
-                  Profile
-                </Link>
+                <Link to="/dashboard/profile">Profile</Link>
               </li>
-         
+
               <li className=" border-t-2 ">
                 <p
                   onClick={() => logout()}
