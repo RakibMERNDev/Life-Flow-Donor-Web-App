@@ -30,7 +30,7 @@ const AllRequest = () => {
   };
 
   return (
-    <div className="max-w-screen-xl mx-auto my-10 border rounded-md">
+    <div className="max-w-screen-xl h-screen mx-auto my-10 border rounded-md">
       <Helmet>
         <title>LifeFlowDonor | All</title>
       </Helmet>
