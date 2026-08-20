@@ -83,7 +83,7 @@ const CreateRequest = () => {
           <section>
             <div className="bg-blue-500 shadow-lg">
               <div className="p-4">
-                <h3 className="text-xl lg:text-3xl mb-2 text-center font-bold text-black">
+                <h3 className="text-xl lg:text-3xl mb-2 text-center font-bold text-white">
                   Create A request for Donor
                 </h3>
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -106,7 +106,7 @@ const CreateRequest = () => {
 
                   <div className="flex gap-10 my-5">
                     <div className="md:w-1/2">
-                      <p className="text-sm font-semibold mb-1 text-black">
+                      <p className="text-sm font-semibold mb-1 text-white">
                         Required Blood Group*
                       </p>
                       <select
