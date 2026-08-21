@@ -1,10 +1,14 @@
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import useArea from "../../../hooks/useArea";
-import useAuth from "../../../hooks/useAuth";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import useCurrentUser from "../../../hooks/useCurrentUser";
+import useArea from "../../../hooks/useArea.js";
+import useAuth from "../../../hooks/useAuth.js";
+import useAxiosSecure from "../../../hooks/useAxiosSecure.js";
+import useCurrentUser from "../../../hooks/useCurrentUser.js";
+import {
+  getDistrictName,
+  getUpazilaName,
+} from "../../../lib/getLocationName.js";
 
 const CreateRequest = () => {
   const { user } = useAuth();
@@ -26,8 +30,8 @@ const CreateRequest = () => {
     const donationStatus = "pending";
     const recipientName = data.name;
     const requiredBloodGroup = data.requiredGroup;
-    const upazila = data.upazila;
-    const district = data.district;
+    const upazila = getUpazilaName(data.upazila, upazilas);
+    const district = getDistrictName(data.district, districts);
     const hospitalName = data.hospital;
     const fullAddress = data.address;
     const donationDate = data.donationDate;

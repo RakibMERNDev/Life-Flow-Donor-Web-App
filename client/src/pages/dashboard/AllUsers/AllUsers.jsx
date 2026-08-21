@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
 
-import useUsers from "../../../hooks/useUsers";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { AiOutlineDelete } from "react-icons/ai";
+import useAxiosSecure from "../../../hooks/useAxiosSecure.js";
+import useUsers from "../../../hooks/useUsers.js";
 
 const AllUsers = () => {
   const { users, refetch } = useUsers();
@@ -119,7 +119,7 @@ const AllUsers = () => {
   };
 
   const filteredUsers = users.filter(
-    (user) => status === "" || user.status === status
+    (user) => status === "" || user.status === status,
   );
   // console.log(filteredUsers)
 

@@ -3,8 +3,8 @@ import { useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAxiosPublic from "../../../hooks/useAxiosPublic.js";
+import useAxiosSecure from "../../../hooks/useAxiosSecure.js";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 

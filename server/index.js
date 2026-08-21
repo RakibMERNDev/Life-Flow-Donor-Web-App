@@ -410,6 +410,7 @@ async function run() {
 
     app.get("/search", async (req, res) => {
       const queryParams = req.query;
+      console.log(queryParams)
 
       const sortOptions = {
         bloodGroup: 1,
@@ -423,7 +424,7 @@ async function run() {
         upazila: queryParams.upazila,
       };
 
-      // console.log(queryParams);
+      console.log(queryParams);
 
       const donor = await usersCollection
         .find(criteria, { projection: { avatarImage: 0, status: 0, role: 0 } })

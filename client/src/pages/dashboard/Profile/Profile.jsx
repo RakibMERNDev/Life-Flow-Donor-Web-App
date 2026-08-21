@@ -1,15 +1,19 @@
 import "react-toastify/dist/ReactToastify.css";
-import useAuth from "../../../hooks/useAuth";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import useAuth from "../../../hooks/useAuth.js";
+import useAxiosPublic from "../../../hooks/useAxiosPublic.js";
 
 import { useForm } from "react-hook-form";
 
 import { useState } from "react";
 import { Helmet } from "react-helmet";
 import { ToastContainer, toast } from "react-toastify";
-import useArea from "../../../hooks/useArea";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import useCurrentUser from "../../../hooks/useCurrentUser";
+import useArea from "../../../hooks/useArea.js";
+import useAxiosSecure from "../../../hooks/useAxiosSecure.js";
+import useCurrentUser from "../../../hooks/useCurrentUser.js";
+import {
+  getDistrictName,
+  getUpazilaName,
+} from "../../../lib/getLocationName.js";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 
@@ -33,48 +37,57 @@ const Profile = () => {
   const onSubmit = async (data) => {
     const name = data.name;
     const bloodGroup = data.group;
-    const upazila = data.upazila;
-    const district = data.district;
-    const imageFile = { image: data.image[0] };
+    const upazila = getUpazilaName(data.upazila, upazilas);
+    const district = getDistrictName(data.district, districts);
 
-    // post the image in image bb
+    let avatar = user?.photoURL;
 
-    const res = await axiosPublic.post(image_hosting_api, imageFile, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    if (data.image && data.image.length > 0) {
+      const imageFile = { image: data.image[0] };
 
-    if (res.data.success) {
-      const avatar = res.data.data.display_url;
-      updateUser(name, avatar);
-      const updatedProfile = {
-        name,
-        bloodGroup,
-        upazila,
-        district,
-        avatar,
-      };
+      const res = await axiosPublic.post(image_hosting_api, imageFile, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
-      const result = await axiosSecure.patch(
-        `/user?email=${user?.email}`,
-        updatedProfile,
-      );
-
-      if (result.data.modifiedCount > 0) {
-        refetch();
-        setEditProfile(false);
-        toast.success("Profile Updated", {
-          position: "bottom-center",
-          autoClose: 2500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
+      if (res.data.success) {
+        avatar = res.data.data.display_url;
+      } else {
+        toast.error("Image upload failed", { position: "bottom-center" });
+        return;
       }
+    }
+
+    updateUser(name, avatar);
+
+    const updatedProfile = {
+      name,
+      bloodGroup,
+      upazila,
+      district,
+      avatar,
+    };
+
+    console.log(updatedProfile);
+    const result = await axiosSecure.patch(
+      `/user?email=${user?.email}`,
+      updatedProfile,
+    );
+
+    if (result.data.modifiedCount > 0) {
+      refetch();
+      setEditProfile(false);
+      toast.success("Profile Updated", {
+        position: "bottom-center",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
 
@@ -159,7 +172,7 @@ const Profile = () => {
                     </p>
 
                     <input
-                      {...register("image", { required: true })}
+                      {...register("image", { required: false })}
                       type="file"
                       className="file-input border-0 file-input-bordered file-input-sm w-full mb-4 max-w-xs"
                     />

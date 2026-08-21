@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import useBlogs from "../../../hooks/useBlogs";
-import useCurrentUser from "../../../hooks/useCurrentUser";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAxiosSecure from "../../../hooks/useAxiosSecure.js";
+import useBlogs from "../../../hooks/useBlogs.js";
+import useCurrentUser from "../../../hooks/useCurrentUser.js";
 
 const ContentManagement = () => {
   const [status, setStatus] = useState("");
@@ -16,7 +16,7 @@ const ContentManagement = () => {
   const { currentUser } = useCurrentUser();
 
   const filteredBlogs = blogs.filter(
-    (blog) => status === "" || blog.status === status
+    (blog) => status === "" || blog.status === status,
   );
 
   const handleDelete = (id) => {

@@ -1,13 +1,13 @@
-import { Helmet } from "react-helmet";
-import useAuth from "../../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet";
 import {
   FaCodePullRequest,
   FaHandHoldingDollar,
   FaUsers,
 } from "react-icons/fa6";
 import { TbDiscountCheck } from "react-icons/tb";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAuth from "../../../hooks/useAuth.js";
+import useAxiosSecure from "../../../hooks/useAxiosSecure.js";
 
 const AdminHome = () => {
   const { user } = useAuth();
@@ -22,7 +22,7 @@ const AdminHome = () => {
   const { totalDonation } = totalData;
   const total = totalDonation?.reduce(
     (acc, transaction) => acc + transaction.price,
-    0
+    0,
   );
 
   return (

@@ -3,7 +3,7 @@ import HTMLReactParser from "html-react-parser";
 import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAxiosSecure from "../../../hooks/useAxiosSecure.js";
 
 const BlogDetails = () => {
   const params = useParams();

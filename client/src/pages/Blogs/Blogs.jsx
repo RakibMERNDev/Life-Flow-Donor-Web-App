@@ -1,9 +1,9 @@
 import { Helmet } from "react-helmet";
 
-import Blog from "./Blog";
-import useShowBlogs from "../../hooks/useShowBlogs";
-import { Stack } from "@mui/system";
 import { Skeleton } from "@mui/material";
+import { Stack } from "@mui/system";
+import useShowBlogs from "../../hooks/useShowBlogs.js";
+import Blog from "./Blog";
 
 const Blogs = () => {
   const { blogs, isLoading } = useShowBlogs();

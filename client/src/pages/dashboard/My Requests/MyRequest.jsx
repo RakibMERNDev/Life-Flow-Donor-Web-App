@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import useAuth from "../../../hooks/useAuth";
-import useUserRequests from "../../../hooks/useUserRequests";
+import useAuth from "../../../hooks/useAuth.js";
+import useUserRequests from "../../../hooks/useUserRequests.js";
 
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAxiosSecure from "../../../hooks/useAxiosSecure.js";
 
 const MyRequest = () => {
   const [status, setStatus] = useState("");
@@ -65,7 +65,7 @@ const MyRequest = () => {
   };
 
   const filteredRequest = requests.filter(
-    (request) => status === "" || request.donationStatus === status
+    (request) => status === "" || request.donationStatus === status,
   );
 
   return (

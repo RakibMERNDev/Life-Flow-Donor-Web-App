@@ -1,8 +1,8 @@
 import { Helmet } from "react-helmet";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import useAuth from "../../hooks/useAuth";
 import Container from "../../Components/Shared/Container";
+import useAuth from "../../hooks/useAuth.js";
 
 const Login = () => {
   const { login } = useAuth();
@@ -17,6 +17,7 @@ const Login = () => {
 
     const email = e.target.email.value;
     const password = e.target.password.value;
+
     login(email, password)
       .then((result) => {
         // console.log(result.user);

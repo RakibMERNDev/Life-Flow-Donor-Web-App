@@ -14,9 +14,9 @@ import { useRef } from "react";
 import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import useAuth from "../../../hooks/useAuth";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import useParticularRequest from "../../../hooks/useParticularRequest";
+import useAuth from "../../../hooks/useAuth.js";
+import useAxiosSecure from "../../../hooks/useAxiosSecure.js";
+import useParticularRequest from "../../../hooks/useParticularRequest.js";
 
 const RequestDetails = () => {
   const { user } = useAuth();

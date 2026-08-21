@@ -1,10 +1,14 @@
+import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import useArea from "../../../hooks/useArea";
-import useParticularRequest from "../../../hooks/useParticularRequest";
-import { Helmet } from "react-helmet";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useArea from "../../../hooks/useArea.js";
+import useAxiosSecure from "../../../hooks/useAxiosSecure.js";
+import useParticularRequest from "../../../hooks/useParticularRequest.js";
+import {
+  getDistrictName,
+  getUpazilaName,
+} from "../../../lib/getLocationName.js";
 
 const UpdateRequest = () => {
   const params = useParams();
@@ -17,8 +21,8 @@ const UpdateRequest = () => {
   const onSubmit = async (data) => {
     const recipientName = data.name;
     const requiredBloodGroup = data.requiredGroup;
-    const upazila = data.upazila;
-    const district = data.district;
+    const upazila = getUpazilaName(data.upazila, upazilas);
+    const district = getDistrictName(data.district, districts);
     const hospitalName = data.hospital;
     const fullAddress = data.address;
     const donationDate = data.donationDate;

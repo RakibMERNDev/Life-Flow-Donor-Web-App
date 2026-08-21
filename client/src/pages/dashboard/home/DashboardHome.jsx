@@ -2,9 +2,9 @@
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import useAuth from "../../../hooks/useAuth";
-import useUserRequests from "../../../hooks/useUserRequests";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAuth from "../../../hooks/useAuth.js";
+import useAxiosSecure from "../../../hooks/useAxiosSecure.js";
+import useUserRequests from "../../../hooks/useUserRequests.js";
 
 const DashboardHome = () => {
   const { user } = useAuth();

@@ -3,10 +3,10 @@ import { useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
-import useCurrentUser from "../../../hooks/useCurrentUser";
+import useAxiosPublic from "../../../hooks/useAxiosPublic.js";
+import useCurrentUser from "../../../hooks/useCurrentUser.js";
 import "./All.css";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAxiosSecure from "../../../hooks/useAxiosSecure.js";
 
 const AllBgRequests = () => {
   const axiosPublic = useAxiosPublic();

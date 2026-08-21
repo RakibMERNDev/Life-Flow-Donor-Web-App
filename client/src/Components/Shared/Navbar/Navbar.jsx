@@ -1,11 +1,8 @@
 import { Link, NavLink } from "react-router-dom";
 
-// will have logo, donation requests, blog, login, registration link before logged
-// in. and will have dashboard, and fundings links addition to those links.
-
-import useAdmin from "../../../hooks/useAdmin";
-import useAuth from "../../../hooks/useAuth";
-import useCurrentUser from "../../../hooks/useCurrentUser";
+import useAdmin from "../../../hooks/useAdmin.js";
+import useAuth from "../../../hooks/useAuth.js";
+import useCurrentUser from "../../../hooks/useCurrentUser.js";
 import "./Navbar.css";
 
 import logo2 from "../../../assets/Logo.png";

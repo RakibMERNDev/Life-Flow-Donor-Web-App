@@ -2,14 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 
 
 
-import useAuth from "../../../hooks/useAuth";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAuth from "../../../hooks/useAuth.js";
+import useAxiosSecure from "../../../hooks/useAxiosSecure.js";
 
 
 const DonationHistory = () => {
 
     const axiosSecure = useAxiosSecure();
-   
+
     const {user} = useAuth();
     const {data:donations=[]}=useQuery({
         queryKey: ['payments',user.email],
@@ -19,7 +19,7 @@ const DonationHistory = () => {
         }
     })
 
-   
+
     return (
         <div>
             <h2 className="text-2xl">Total Donations: {donations.length}</h2>
@@ -44,10 +44,10 @@ const DonationHistory = () => {
             <td>${item.price}</td>
             <td>{item.transactionId}</td>
             <td>{item.date}</td>
-          
+
           </tr>)
      }
-     
+
     </tbody>
   </table>
 </div>

@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 
 import Skeleton from "@mui/material/Skeleton";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
+import useAxiosPublic from "../../hooks/useAxiosPublic.js";
 
 import { useState } from "react";
 import LoadingSkeleton from "./LoadingSkeleton";

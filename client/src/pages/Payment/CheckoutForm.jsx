@@ -3,11 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-
-
-
-import useAuth from "../../hooks/useAuth";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAuth from "../../hooks/useAuth.js";
+import useAxiosSecure from "../../hooks/useAxiosSecure.js";
 
 const CheckoutFrom = () => {
   const { user } = useAuth();
@@ -15,8 +12,8 @@ const CheckoutFrom = () => {
   const elements = useElements();
   const [clientSecret, setClientSecret] = useState("");
   const [error, setError] = useState("");
- 
- const axiosSecure = useAxiosSecure();
+
+  const axiosSecure = useAxiosSecure();
 
   const [transaction, setTransaction] = useState();
   const navigate = useNavigate();
@@ -27,10 +24,9 @@ const CheckoutFrom = () => {
   const options = [5, 10, 20, 50, 100];
   const totalDonation = selectedOption > 0 ? selectedOption : customPrice;
 
-
   useEffect(() => {
     if (totalDonation > 0) {
-     axiosSecure
+      axiosSecure
         .post("/create-payment-intent", { price: totalDonation })
         .then((res) => {
           // console.log(res.data.clientSecret);
@@ -41,11 +37,11 @@ const CheckoutFrom = () => {
 
   const handleSelectChange = (event) => {
     setSelectedOption(Number(event.target.value));
-    setCustomPrice(0); 
+    setCustomPrice(0);
   };
 
   const handleCustomPriceChange = (event) => {
-    setSelectedOption(0); 
+    setSelectedOption(0);
     setCustomPrice(Number(event.target.value));
   };
 
@@ -68,7 +64,6 @@ const CheckoutFrom = () => {
     });
 
     if (error) {
-      
       setError(error.message);
     } else {
       setError("");
@@ -90,9 +85,7 @@ const CheckoutFrom = () => {
       // console.log(confirmError, "confirm error");
       Swal.fire({
         icon: "error",
-        title: `${confirmError.message}`
-        
-       
+        title: `${confirmError.message}`,
       });
     } else {
       // console.log(paymentIntent, "payment intent");
@@ -106,12 +99,11 @@ const CheckoutFrom = () => {
           transactionId: paymentIntent.id,
           price: totalDonation,
           date: new Date(), // utc date convert. use moment js to
-        
         };
 
         const res = await axiosSecure.post("/payments", payment);
         // console.log("payment saved", res.data);
-   
+
         if (res.data.donationResult.insertedId) {
           //
           Swal.fire({
@@ -132,7 +124,9 @@ const CheckoutFrom = () => {
   return (
     <div className=" bg-slate-100 text-black shadow-lg p-5 mx-auto">
       <div className="mb-10">
-        <span className="my-5 text-xl font-bold">Select an amount for donation</span>
+        <span className="my-5 text-xl font-bold">
+          Select an amount for donation
+        </span>
         <select
           className="select select-bordered w-full max-w-xs"
           value={selectedOption}
@@ -145,50 +139,53 @@ const CheckoutFrom = () => {
             </option>
           ))}
         </select>
-        
+
         {selectedOption === 0 && (
-         <> <p className="my-2 font-bold">Or enter a custom amount</p>
-         <input
-           type="number"
-           className="input input-bordered mt-2"
-           placeholder="Enter custom amount"
-           value={customPrice}
-           onChange={handleCustomPriceChange}
-         /></>
+          <>
+            {" "}
+            <p className="my-2 font-bold">Or enter a custom amount</p>
+            <input
+              type="number"
+              className="input input-bordered mt-2"
+              placeholder="Enter custom amount"
+              value={customPrice}
+              onChange={handleCustomPriceChange}
+            />
+          </>
         )}
       </div>
       <form onSubmit={handleSubmit}>
-      <CardElement
-        options={{
-          style: {
-            base: {
-              fontSize: "16px",
-              color: "#424770",
-              "::placeholder": {
-                color: "#000000",
+        <CardElement
+          options={{
+            style: {
+              base: {
+                fontSize: "16px",
+                color: "#424770",
+                "::placeholder": {
+                  color: "#000000",
+                },
+              },
+              invalid: {
+                color: "#F2484B",
               },
             },
-            invalid: {
-              color: "#F2484B",
-            },
-          },
-        }}
-      />
-      <button
-        className="btn btn-sm bg-white text-violet-500 my-5"
-        type="submit"
-        disabled={!stripe || !clientSecret}
-      >
-        Pay
-      </button>
-      {error && <p className="text-red-400">{error}</p>}
-      {transaction && (
-        <p className="text-green-600">
-          Transaction Successful. Transaction id: {transaction}
-        </p>
-      )}
-    </form>
-  </div>
+          }}
+        />
+        <button
+          className="btn btn-sm bg-white text-violet-500 my-5"
+          type="submit"
+          disabled={!stripe || !clientSecret}
+        >
+          Pay
+        </button>
+        {error && <p className="text-red-400">{error}</p>}
+        {transaction && (
+          <p className="text-green-600">
+            Transaction Successful. Transaction id: {transaction}
+          </p>
+        )}
+      </form>
+    </div>
   );
 };
 

@@ -1,11 +1,12 @@
 import { useForm } from "react-hook-form";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 import { Helmet } from "react-helmet";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import useArea from "../../hooks/useArea";
-import useAuth from "../../hooks/useAuth";
+import useArea from "../../hooks/useArea.js";
+import useAuth from "../../hooks/useAuth.js";
+import useAxiosPublic from "../../hooks/useAxiosPublic.js";
+import { getDistrictName, getUpazilaName } from "../../lib/getLocationName.js";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 
@@ -38,11 +39,13 @@ const Signup = () => {
     const email = data.email;
     const confirmPassword = data.confirm;
     const bloodGroup = data.group;
-    const upazila = data.upazila;
-    const district = data.district;
+    const upazila = getUpazilaName(data.upazila, upazilas);
+    const district = getDistrictName(data.district, districts);
     const status = "active";
     const role = "donor";
     const imageFile = { image: data.image[0] };
+
+    console.log(upazila, district);
 
     if (password !== confirmPassword) {
       return Swal.fire({
@@ -61,8 +64,6 @@ const Signup = () => {
         "Content-Type": "multipart/form-data",
       },
     });
-
-    console.log(res.data, "for image");
 
     if (res.data.success) {
       // image url from image bb
